@@ -17,26 +17,16 @@ const CardDash = ({
     {
       header: "Logical Consistency",
       subHeaders: [
-        "Domain Consistency",
+       
         "Format Consistency",
       ],
     },
-    {
-      header: "Temporal Quality",
-      subHeaders: [
-        "Accuracy of Time Measurement",
-        "Temporal Consistency",
-        "Temporal validity",
-      ],
-    },
+    
   ];
 
   const subheaderRoutes = {
     "Format Consistency": "/format",
-    "Domain Consistency": "/domain",
-    "Temporal validity": "/temporalvalid",
-    "Accuracy of Time Measurement": "/activemeasurement",
-    "Temporal Consistency": "/temporalconsist",
+  
   };
 
   const borders = ["success", "danger", "info", "warning", "dark", "primary"];
@@ -56,7 +46,7 @@ const CardDash = ({
       <center>
         <h1 style={{ marginTop: "10px", fontWeight: "bold", color: "#333" }}>Shipments Coding Rounds</h1>
         <h5 style={{ color: "#555" }}>Check the File Formats</h5>
-        <button >ViewFile </button>
+        <Link to="./view" >ViewFile </Link>
       </center>
       <div
         style={{

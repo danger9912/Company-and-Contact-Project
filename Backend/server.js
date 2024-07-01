@@ -2,10 +2,12 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs').promises;
+const fs1 = require('fs');
 const cors = require('cors');
 const xlsx = require('xlsx');
 const generalDetailsServices = require("./Services/generalServices");
 const formatConsistencyRoutes = require("./routes/formatConsistencyRoutes");
+const temporalQualityRoutes =require("./routes/temporalQualityRoutes")
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -83,6 +85,40 @@ app.use((err, req, res, next) => {
 });
 
 app.use('/api/format', formatConsistencyRoutes);
+
+app.use('/api/temporalquality', temporalQualityRoutes);
+
+app.post('/api/validate_phone', (req, res) => {
+   const filename = req.body.filename;
+    const attributes = req.body.attributes;
+    
+    try {
+        console.log(__dirname);
+        const filePath = path.join(__dirname, "uploads", filename);
+            console.log(filePath)        
+        const rawData = fs1.readFileSync(filePath);
+        const data = JSON.parse(rawData);
+       
+        const typ = attributes[0].value;
+
+        // const typ = attributes[0].value;
+        const phoneNumbers = data.map(item => item[typ]);
+
+        // Regular expression to match a valid phone number (adjust as needed)
+        const phoneRegex = /^[0-9]{10}$/;
+
+        const results = phoneNumbers.map(phoneNumber => ({
+            phoneNumber: phoneNumber,
+            isValid: phoneRegex.test(phoneNumber)
+        }));
+
+        res.json(results);
+        // res.send("hello");
+    } catch (err) {
+        console.error('Error reading or parsing file:', err);
+        res.status(500).json({ error: 'Error reading or parsing file' });
+    }
+});
 
 app.listen(3001, () => {
     console.log('Server running on port 3001');

@@ -32,11 +32,11 @@ const FormatConsist = () => {
         <option value="FileFormat">File Format</option>
         <option value="DateFormat">Date Format</option>
      
-        <option value="State">phone Format</option>
+        <option value="Phone">phone Format</option>
   
       </select>
 
-      {selectedFormat === "StationCode" && <Phone />}
+      {selectedFormat === "Phone" && <Phone />}
       {selectedFormat === "FileFormat" && <FileFormat />}
       {selectedFormat === "DateFormat" && <Date />}
      

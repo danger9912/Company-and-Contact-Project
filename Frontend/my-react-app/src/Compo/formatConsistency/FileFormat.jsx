@@ -20,7 +20,7 @@ const FormatConsistency = () => {
     formData.append("excelFile", selectedFile);
 
     try {
-      const response = await axios.post("http://localhost:3001/api/generaldetails", formData);
+      const response = await axios.post("http://localhost:3001/upload_file", formData);
       if (response.status === 201) {
         setSelectedFilename(response.data);
       }
@@ -69,24 +69,7 @@ const FormatConsistency = () => {
     setTarget(event.target);
   };
 
-  const multiplehandleFileChange = async (event) => {
-    const selectedFiles = event.target.files;
-    for (let index = 0; index < selectedFiles.length; index++) {
-      const formData = new FormData();
-      formData.append("excelFile", selectedFiles[index]);
-      try {
-        const response = await axios.post("http://localhost:3001/upload_file", formData);
-        if (response.status === 201) {
-          fileNames.push(response.data);
-        }
-      } catch (error) {
-        if (error.response && error.response.status === 400) {
-          alert(error.response.data.message);
-        }
-        console.log("Error:", error);
-      }
-    }
-  };
+
 
   const fetchForeignKeyValues = async () => {
     try {
@@ -120,18 +103,18 @@ const FormatConsistency = () => {
             }}
           >
             <div style={{ flex: "1", marginRight: "10px" }}>
-              <PickList
-                source={source}
-                target={target}
-                itemTemplate={(item) => item.label}
-                sourceHeader="Available Attribute Headings"
-                targetHeader="Data Product Specification"
-                showSourceControls={false}
-                showTargetControls={false}
-                sourceStyle={{ height: "300px" }}
-                targetStyle={{ height: "300px" }}
-                onChange={onChange}
-              />
+            <PickList
+          source={source}
+          target={target}
+          itemTemplate={(item) => item.label}
+          sourceHeader="Available Attribute Headings"
+          targetHeader="Selected Attributes"
+          showSourceControls={false}
+          showTargetControls={false}
+          sourceStyle={{ height: "300px", border: "1px solid #ccc", borderRadius: "4px", padding: "10px", marginRight: "10px" }}
+          targetStyle={{ height: "300px", border: "1px solid #ccc", borderRadius: "4px", padding: "10px" }}
+          onChange={onChange}
+        />
             </div>
           </div>
           <button className="btn btn-primary mt-3" onClick={sendFieldNames} disabled={target.length === 0}>Check Validity</button>
@@ -156,7 +139,7 @@ const FormatConsistency = () => {
         </div>
         <center>
           <h2>Foreign Key Constraint</h2>
-          <input className="form-control uploadBtnInput" id="formFile" style={{ height: "2.5%", width: "355px",marginTop:"10px" }} onChange={multiplehandleFileChange} type="file" multiple />
+          <input className="form-control uploadBtnInput" id="formFile" style={{ height: "2.5%", width: "355px",marginTop:"10px" }} type="file" multiple />
           <button type="button" className="btn btn-primary" style={{marginTop:"10px"}} onClick={fetchForeignKeyValues}>Check Validity</button>
         </center>
         <div className="container">

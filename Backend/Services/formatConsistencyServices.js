@@ -1,12 +1,9 @@
-const db = require("../database/connection");
-const checkPKFormatConsistency = require("../utils/checkPKFormatConsistency")
-const checkFKFormatConsistency = require('../utils/checkFKFormatConsistency')
+
+const checkPKFormatConsistency = require("../utilis/checkPKFormatConsistency")
+const checkFKFormatConsistency = require('../utilis/checkFKFormatConsistency')
 
 const formatServices = {
  
-
-
-
   
   
 
