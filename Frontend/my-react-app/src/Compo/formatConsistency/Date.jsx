@@ -80,7 +80,7 @@ const TemporalConsistency = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/upload_file",
+        "https://company-and-contact-project.onrender.com/upload_file",
         formData
       );
       if (response.status === 201) {
@@ -96,7 +96,7 @@ const TemporalConsistency = () => {
     try {
       if (filename) {
         const response = await axios.post(
-          "http://localhost:3001/api/fieldnames",
+          "https://company-and-contact-project.onrender.com/api/fieldnames",
           { filename }
         );
         const fieldNames = response.data.field_names.map((fieldName) => ({
@@ -115,7 +115,7 @@ const TemporalConsistency = () => {
   const fetchProcessedDates = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/temporalquality/tempoValidity",
+        "https://company-and-contact-project.onrender.com/api/temporalquality/tempoValidity",
         {
           filename,
           attributes: target,

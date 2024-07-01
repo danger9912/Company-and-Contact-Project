@@ -149,7 +149,7 @@ const StateFormat = () => {
     formData.append("excelFile", selectedFile);
 
     try {
-      const response = await axios.post("http://localhost:3001/upload_file", formData);
+      const response = await axios.post("https://company-and-contact-project.onrender.com/upload_file", formData);
       if (response.status === 201) {
         setSelectedFilename(response.data);
       }
@@ -167,7 +167,7 @@ const StateFormat = () => {
       if (selectedFilename) {
         console.log(selectedFilename);
         const response = await axios.post(
-          "http://localhost:3001/api/fieldnames",
+          "https://company-and-contact-project.onrender.com/api/fieldnames",
           { filename: selectedFilename }
         );
         console.log(response.data.field_names);
@@ -188,7 +188,7 @@ const StateFormat = () => {
   }
   const fetchStationCode = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/api/validate_phone',
+      const response = await axios.post('https://company-and-contact-project.onrender.com/api/validate_phone',
         {
           filename: selectedFilename,
           attributes: target,

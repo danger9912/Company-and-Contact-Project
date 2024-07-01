@@ -20,7 +20,7 @@ const FormatConsistency = () => {
     formData.append("excelFile", selectedFile);
 
     try {
-      const response = await axios.post("http://localhost:3001/upload_file", formData);
+      const response = await axios.post("https://company-and-contact-project.onrender.com/upload_file", formData);
       if (response.status === 201) {
         setSelectedFilename(response.data);
       }
@@ -35,7 +35,7 @@ const FormatConsistency = () => {
   const fetchFieldNames = async () => {
     try {
       if (selectedFilename) {
-        const response = await axios.post("http://localhost:3001/api/fieldnames", { filename: selectedFilename });
+        const response = await axios.post("https://company-and-contact-project.onrender.com/api/fieldnames", { filename: selectedFilename });
         setSource(response.data.field_names.map((fieldName) => ({ label: fieldName, value: fieldName })));
       } else {
         console.error("No filename selected.");
@@ -49,7 +49,7 @@ const FormatConsistency = () => {
     try {
       if (selectedFilename) {
         target.forEach((e) => sendField.push(e.value));
-        const response = await axios.post("http://localhost:3001/api/format/checkPK-format", {
+        const response = await axios.post("https://company-and-contact-project.onrender.com/api/format/checkPK-format", {
           filename: selectedFilename,
           attributes: sendField,
         });
@@ -73,7 +73,7 @@ const FormatConsistency = () => {
 
   const fetchForeignKeyValues = async () => {
     try {
-      const response = await axios.post("http://localhost:3001/api/format/checkFK-format", {
+      const response = await axios.post("https://company-and-contact-project.onrender.com/api/format/checkFK-format", {
         filename: selectedFilename,
         primary_key: primaryKey,
         files: fileNames
