@@ -1,4 +1,7 @@
 Task 1: Implement Data Import Functionality for Company and Contact Models
+
+
+***************************************************************
 1 .Overview:
   Describe your project briefly. Mention that it involves converting Excel files to JSON format and checking data consistency across three validation options: file format, date format, and phone number.
 
@@ -14,7 +17,7 @@ Task 1: Implement Data Import Functionality for Company and Contact Models
 5. Phone Number Validation:
 
   Validates phone numbers to check if they adhere to a specified format.
-
+***************************************************************
   
 Getting Started
 Prerequisites
@@ -23,8 +26,8 @@ List any prerequisites or dependencies needed to run the project.
 
 
 Installation
-Provide installation instructions, including how to install dependencies and how to run the project locally.
-
+For installation  just write npm start
+***************************************************************
 
 Usage
 Explain how to use each feature of the application:
@@ -34,14 +37,19 @@ How to select attributes for file format validation.
 How to select a date attribute for date format validation.
 How to validate phone numbers.
 
-
+***************************************************************
 Technologies Used
  ( React, Node.js, styled-components, Axios, PrimeReact).
+***************************************************************
+
+ 
 
  Backend Link: https://company-and-contact-project.onrender.com/
- frontend Link :
 
+***************************************************************
+ frontend Link: https://company-and-contact-project.vercel.app/
 
+***************************************************************
 
 
 
