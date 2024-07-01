@@ -9,8 +9,8 @@ import styled from 'styled-components';
 const TableWrapper = styled.div`
   max-height: 450px;
   overflow-y: auto;
-  width: 500px;
-  height: 550px;
+  width: 1000px;
+  height: 600px;
   border: 1px solid #ccc;
   border-radius: 10px;
 `;
@@ -83,6 +83,7 @@ const UploadFiles = () => {
     const [source, setSource] = useState([]);
     const [target, setTarget] = useState([]);
     const [selectedFilename, setSelectedFilename] = useState("");
+    const [data,setdata] = useState([]);
 
     const handleFileChange = async (event) => {
         const selectedFile = event.target.files[0];
@@ -130,27 +131,63 @@ const UploadFiles = () => {
             setTarget(target.length > 1 ? [target[target.length - 1]] : []);
         }
     };
-
+    const handleView =async()=>{
+        try {
+            console.log("hello")
+            if (selectedFilename) {
+                const response = await axios.post(
+                    "http://localhost:3001/api/view",
+                    { name: selectedFilename }
+                );
+               console.log(response.data);
+            setdata(response.data.file_data)
+            } else {
+                console.error("No filename selected.");
+            }
+        } catch (error) {
+            console.error("Error fetching field names:", error);
+        }
+    }
     return (
         <MainContainer>
             <h2>Upload Files</h2>
             <Input onChange={handleFileChange} type="file" name="excelFile" />
-            <UploadButton onClick={fetchFieldNames}>Read Dataset</UploadButton>
-            <DataContainer>
-                <PickList
-                    source={source}
-                    target={target}
-                    itemTemplate={(item) => item.label}
-                    sourceHeader="Available Attribute Headings"
-                    targetHeader="Data Product Specification"
-                    showSourceControls={false}
-                    showTargetControls={false}
-                    sourceStyle={{ height: '300px' }}
-                    targetStyle={{ height: '300px' }}
-                    onChange={onChange}
-                />
-            </DataContainer>
-            <UploadButton>Start Test</UploadButton>
+           <br></br>
+            <Button onClick={handleView}>Start Test</Button>
+        <br></br>
+            <TableWrapper>
+                <Table1>
+                  <thead>
+                    <tr>
+                      <TableHeader>Sr No.</TableHeader>
+                      <TableHeader>company Name</TableHeader>
+                      <TableHeader>company address</TableHeader>
+                      <TableHeader>company email</TableHeader>
+                      <TableHeader>company website</TableHeader>
+                      <TableHeader>company phone</TableHeader>
+                      <TableHeader>company founded date</TableHeader>
+                      <TableHeader>Industry Type</TableHeader>
+                      <TableHeader>
+                      Number of Employees</TableHeader>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data?.map((item, index) => (
+                      <TableBodyRow key={index}>
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{item?.Company_Name}</TableCell>
+                        <TableCell>{item?.Company_Address}</TableCell>
+                        <TableCell>{item?.Company_Email}</TableCell>
+                        <TableCell>{item?.Company_Website}</TableCell>
+                        <TableCell>{item?.Company_Phone}</TableCell>
+                        <TableCell>{item?.Founded_Date}</TableCell>
+                        <TableCell>{item?.Industry_Type}</TableCell>
+                        <TableCell>{item?.Employees}</TableCell>
+                      </TableBodyRow>
+                    ))}
+                  </tbody>
+                </Table1>
+              </TableWrapper>
         </MainContainer>
     );
 };

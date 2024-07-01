@@ -5,6 +5,7 @@ const fs = require('fs').promises;
 const cors = require('cors');
 const xlsx = require('xlsx');
 const generalDetailsServices = require("./Services/generalServices");
+const formatConsistencyRoutes = require("./routes/formatConsistencyRoutes");
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -52,9 +53,10 @@ app.post('/api/fieldnames', async (req, res) => {
     }
 });
 
-app.get('/api/view/:name', async (req, res, next) => {
+app.post('/api/view', async (req, res, next) => {
     try {
-        const filename = req.params.name;
+            console.log(req.body)
+        const filename = req.body.name;
 
         if (!filename) {
             return res.status(400).json({ error: 'Filename is required in the request body.' });
@@ -79,6 +81,8 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ error: 'Internal Server Error' });
 });
+
+app.use('/api/format', formatConsistencyRoutes);
 
 app.listen(3001, () => {
     console.log('Server running on port 3001');
